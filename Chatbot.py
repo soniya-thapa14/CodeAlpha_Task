@@ -5,14 +5,10 @@ import spacy
 import requests
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
-
-# Download required NLTK data
 nltk.download('punkt')
 
-# Load spaCy language model
 nlp = spacy.load('en_core_web_sm')
 
-# Sample training data
 training_data = [
     {"intent": "greeting", "text": "hello"},
     {"intent": "greeting", "text": "hi"},
@@ -47,9 +43,8 @@ responses = {
         "default": ["I'm sorry, I didn't understand that.", "Can you rephrase?"]
 }
 
-# Function to fetch weather using an example API (replace with a real API key)
 def get_weather(city="kathmandu"):
-    api_key = "da799239ed8b4d039b780620250401"  # Replace with your actual API key
+    api_key = "da799239ed8b4d039b780620250401"  
     url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
     try:
         response = requests.get(url)
