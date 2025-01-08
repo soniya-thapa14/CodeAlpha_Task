@@ -26,12 +26,11 @@ training_data = [
     {"intent": "goodbye", "text": "goodbye"},
     {"intent": "thanks", "text": "thank you"},
     {"intent": "thanks", "text": "thanks"},
-    {"intent": "weather", "text": "what's the weather"},
-    {"intent": "weather", "text": "tell me the weather"},
+    {"intent": "weather", "text": "how's the weather"},
     {"intent": "weather", "text": "what is the weather like"},
 ]
 
-# Predefined responses
+
 responses = {
         "greeting": ["Hello!", "Hi there!", "Hey! How can I help you?"],
         "how_are_you": [" I'm doing great! How about you?"],
@@ -54,7 +53,7 @@ def get_weather(city="kathmandu"):
         return f"The current temperature in {city} is {temp}°C with {condition}."
     except Exception as e:
         return "Sorry, I couldn't fetch the weather details."
-# Train intent classification model
+
 def train_model():
     texts = [item["text"] for item in training_data]
     intents = [item["intent"] for item in training_data]
@@ -65,22 +64,19 @@ def train_model():
     model.fit(X, intents)
 
     return vectorizer, model
-
-# Predict intent
 def predict_intent(user_input, vectorizer, model):
     X_input = vectorizer.transform([user_input])
     return model.predict(X_input)[0]
 
-# Chatbot response logic
 def chatbot_response(user_input, vectorizer, model):
     intent = predict_intent(user_input, vectorizer, model)
     
     if intent == "weather":
-        return get_weather()  # Example with default city
+        return get_weather()  
     else:
         return random.choice(responses.get(intent, responses["default"]))
 
-# Main chatbot function
+
 def chatbot():
     vectorizer, model = train_model()
     print("Chatbot: Hi! I'm your chatbot. Type 'exit' to end the conversation.")
@@ -94,6 +90,6 @@ def chatbot():
         response = chatbot_response(user_input, vectorizer, model)
         print(f"Chatbot: {response}")
 
-# Run the chatbot
+
 if __name__ == "__main__":
     chatbot()
