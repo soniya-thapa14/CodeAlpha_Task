@@ -74,3 +74,4 @@ while not game_over:
         game_over=True
         print('you win')
     print(stages[lives])
+print(f"The word is {chosen_word}")
